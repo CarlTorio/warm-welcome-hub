@@ -18,6 +18,7 @@ const CRM = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isAddingContact, setIsAddingContact] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -65,18 +66,34 @@ const CRM = () => {
     return (
       <div className="min-h-screen bg-background pt-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={() => setSelectedCategory(null)}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Categories
-          </Button>
+          <div className="flex items-center justify-between mb-4">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setSelectedCategory(null);
+                setIsAddingContact(false);
+              }}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Categories
+            </Button>
+            <Button
+              size="icon"
+              onClick={() => setIsAddingContact(true)}
+              disabled={isAddingContact}
+              className="rounded-full w-10 h-10"
+            >
+              <Plus className="w-5 h-5" />
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold text-foreground mb-6">
             {selectedCategory.name}
           </h1>
-          <ContactsTable categoryId={selectedCategory.id} />
+          <ContactsTable
+            categoryId={selectedCategory.id}
+            isAdding={isAddingContact}
+            onAddingChange={setIsAddingContact}
+          />
         </div>
       </div>
     );

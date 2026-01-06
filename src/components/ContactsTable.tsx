@@ -35,14 +35,15 @@ interface Contact {
 
 interface ContactsTableProps {
   categoryId: string;
+  isAdding?: boolean;
+  onAddingChange?: (isAdding: boolean) => void;
 }
 
-const ContactsTable = ({ categoryId }: ContactsTableProps) => {
+const ContactsTable = ({ categoryId, isAdding = false, onAddingChange }: ContactsTableProps) => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editData, setEditData] = useState<Partial<Contact>>({});
-  const [isAdding, setIsAdding] = useState(false);
   const [newContact, setNewContact] = useState({
     business_name: "",
     email: "",
@@ -96,7 +97,7 @@ const ContactsTable = ({ categoryId }: ContactsTableProps) => {
         status: "Pending",
         notes: "",
       });
-      setIsAdding(false);
+      onAddingChange?.(false);
       toast.success("Contact added");
     } else {
       toast.error("Failed to add contact");
@@ -172,14 +173,6 @@ const ContactsTable = ({ categoryId }: ContactsTableProps) => {
 
   return (
     <div className="space-y-4">
-      {/* Add Button */}
-      <div className="flex justify-end">
-        <Button onClick={() => setIsAdding(true)} disabled={isAdding}>
-          <Plus className="w-4 h-4 mr-2" />
-          Add Contact
-        </Button>
-      </div>
-
       {/* Table */}
       <div className="border border-border rounded-lg overflow-hidden">
         <Table>
@@ -259,7 +252,7 @@ const ContactsTable = ({ categoryId }: ContactsTableProps) => {
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={() => setIsAdding(false)}
+                      onClick={() => onAddingChange?.(false)}
                     >
                       <X className="w-4 h-4 text-destructive" />
                     </Button>
