@@ -390,19 +390,17 @@ const ContactsTable = ({ categoryId, isAdding = false, onAddingChange }: Contact
               </TableRow>
             ))}
 
-            {contacts.length === 0 && !isAdding && (
+            {/* Always show add button row */}
+            {!isAdding && (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-12">
+                <TableCell colSpan={6} className="text-center py-6">
                   <Button
                     size="icon"
                     onClick={() => onAddingChange?.(true)}
-                    className="rounded-full w-12 h-12 mx-auto"
+                    className="rounded-full w-10 h-10 mx-auto"
                   >
-                    <Plus className="w-6 h-6" />
+                    <Plus className="w-5 h-5" />
                   </Button>
-                  <p className="text-muted-foreground mt-4">
-                    No contacts yet. Click to add one.
-                  </p>
                 </TableCell>
               </TableRow>
             )}
