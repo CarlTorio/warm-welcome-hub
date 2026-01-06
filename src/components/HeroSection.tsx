@@ -19,7 +19,7 @@ const HeroSection = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground animate-fade-in" style={{
           animationDelay: "0.1s"
         }}>
-            Team Data &
+             Data & Account  
             <span className="block text-gradient bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
               Credit Hub
             </span>
