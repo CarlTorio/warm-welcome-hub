@@ -14,7 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      contacts: {
+        Row: {
+          business_name: string
+          category_id: string | null
+          created_at: string
+          email: string | null
+          id: string
+          mobile_number: string | null
+          notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          business_name: string
+          category_id?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          mobile_number?: string | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string
+          category_id?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          mobile_number?: string | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "contact_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
